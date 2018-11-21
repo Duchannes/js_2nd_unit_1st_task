@@ -1,0 +1,31 @@
+{
+  "name": "js_2nd_unit_1st_task",
+  "version": "1.0.0",
+  "description": "",
+  "main": "task.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "eslint": "eslint task.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Duchannes/js_2nd_unit_1st_task.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Duchannes/js_2nd_unit_1st_task/issues"
+  },
+  "homepage": "https://github.com/Duchannes/js_2nd_unit_1st_task#readme",
+  "devDependencies": {
+    "eslint": "^5.9.0",
+    "eslint-config-standard": "^12.0.0",
+    "eslint-plugin-import": "^2.14.0",
+    "eslint-plugin-node": "^8.0.0",
+    "eslint-plugin-promise": "^4.0.1",
+    "eslint-plugin-standard": "^4.0.0"
+  },
+  "dependencies": {
+    "yargs": "^12.0.5"
+  }
+}
