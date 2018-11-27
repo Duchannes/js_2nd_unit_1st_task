@@ -3,6 +3,7 @@ const fs = require('fs');
 const pathFromArgs = require('yargs').argv.path;
 const path = pathFromArgs || './notes.json';
 
+// eslint-disable-next-line no-unused-vars
 const yargs = require('yargs')
   .usage('$0 <cmd> [args]')
   .option('path', {
