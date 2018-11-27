@@ -11,11 +11,10 @@ const yargs = require('yargs')
 // eslint-disable-next-line no-unused-expressions
 yargs
   .command(
-    'add [title] [body]',
-    'Add new unique note with the [title] and the [body]',
+    'add <title> <body>',
+    'Add new unique note with the <title> and the <body>',
     {},
     function add (argv) {
-      if (!argv.title || !argv.body) { throw new Error('[Title] or [body] cannot be empty'); }
       let jsonObject = readFile();
       checkTitleExistence(jsonObject, argv.title);
       jsonObject.push({ title: argv.title, body: argv.body });
@@ -32,20 +31,18 @@ yargs
       showAllNotes(jsonObject);
     })
   .command(
-    'read [title]',
-    'Read one note by it\'s [title]',
+    'read <title>',
+    'Read one note by it\'s <title>',
     {},
     function read (argv) {
-      if (!argv.title) { throw new Error('[Title] cannot be empty'); }
       const jsonObject = readFile();
       showNote(jsonObject, argv.title);
     })
   .command(
-    'remove [title]',
-    'Remove one note by it\'s [title]',
+    'remove <title>',
+    'Remove one note by it\'s <title>',
     {},
     function remove (argv) {
-      if (!argv.title) { throw new Error('[Title] cannot be empty'); }
       let jsonObject = readFile();
       jsonObject = removeNote(jsonObject, argv.title);
       writeToFile(jsonObject);
