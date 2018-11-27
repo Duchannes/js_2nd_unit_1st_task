@@ -1,15 +1,15 @@
 const fs = require('fs');
 
-const pathFromArgs = require('yargs').argv.path;
-const path = pathFromArgs || './notes.json';
-
-// eslint-disable-next-line no-unused-vars
 const yargs = require('yargs')
   .usage('$0 <cmd> [args]')
   .option('path', {
     alias: 'p',
-    describe: 'path to .json file with notes'
-  })
+    describe: 'path to .json file with notes',
+    default: './notes.json'
+  });
+
+// eslint-disable-next-line no-unused-expressions
+yargs
   .command(
     'add [title] [body]',
     'Add new unique note with the [title] and the [body]',
@@ -57,12 +57,12 @@ const yargs = require('yargs')
   .argv;
 
 function readFile () {
-  if (!fs.existsSync(path)) { throw new Error(`File "${path}" not found`); }
-  return require(path);
+  if (!fs.existsSync(yargs.argv.path)) { throw new Error(`File "${yargs.argv.path}" not found`); }
+  return require(yargs.argv.path);
 }
 
 function writeToFile (object) {
-  fs.writeFileSync(path, JSON.stringify(object, null, ' '));
+  fs.writeFileSync(yargs.argv.path, JSON.stringify(object, null, ' '));
 }
 
 function checkTitleExistence (object, title) {
