@@ -4,7 +4,7 @@ const pathLib = require('path');
 
 const removeNote = function (allNotes, title) {
   const updatedNotes = allNotes.filter(element => {
-    if (element.title.toLowerCase() !== title.toLowerCase()) {
+    if (element.title.toString().toLowerCase() !== title.toString().toLowerCase()) {
       return element;
     }
   });
@@ -17,7 +17,7 @@ const removeNote = function (allNotes, title) {
 const showNote = function (allNotes, title) {
   console.clear();
   const note = allNotes.filter(element => {
-    if (element.title.toLowerCase() === title.toLowerCase()) {
+    if (element.title.toString().toLowerCase() === title.toString().toLowerCase()) {
       console.log('Note:');
       Object.keys(element).forEach(key => {
         console.log(key + ': ' + element[key]);
@@ -53,7 +53,7 @@ const checkTitleExistence = function (allNotes, title) {
 const updateNote = function (allNotes, title, newTitle, newBody) {
   let someChange = false;
   const notes = allNotes.map(element => {
-    if (element.title.toLowerCase() === title.toLowerCase()) {
+    if (element.title.toString().toLowerCase() === title.toString().toLowerCase()) {
       element.title = newTitle || element.title;
       element.body = newBody || element.body;
       someChange = true;

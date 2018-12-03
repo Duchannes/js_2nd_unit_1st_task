@@ -55,6 +55,7 @@ yargs
     {},
     function update (argv) {
       let allNotes = notes.readFile(yargs.argv.path);
+      if (argv.newTitle) { notes.checkTitleExistence(allNotes, argv.newTitle); }
       allNotes = notes.updateNote(allNotes, argv.title, argv.newTitle, argv.newBody);
       notes.writeToFile(allNotes, yargs.argv.path);
       console.clear();
