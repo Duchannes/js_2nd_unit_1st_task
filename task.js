@@ -90,6 +90,3 @@ yargs
   .demandCommand(1, 'You need at least one command before moving on. Type "task --help" for help')
   .help()
   .argv;
-
-// date     |titleLength|noteLength|title   |
-// desc/asc |desc/asc   |desc/asc  |desc/asc|
