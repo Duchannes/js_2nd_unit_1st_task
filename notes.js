@@ -1,7 +1,3 @@
-const fs = require('fs');
-const xlsx = require('xlsx');
-const pathLib = require('path');
-
 const removeNote = function (allNotes, title) {
   const updatedNotes = allNotes.filter(element => {
     if (element.title.toString().toLowerCase() !== title.toString().toLowerCase()) {
@@ -15,7 +11,6 @@ const removeNote = function (allNotes, title) {
 };
 
 const showNote = function (allNotes, title) {
-  console.clear();
   const note = allNotes.filter(element => {
     if (element.title.toString().toLowerCase() === title.toString().toLowerCase()) {
       console.log('Note:');
@@ -29,7 +24,6 @@ const showNote = function (allNotes, title) {
 };
 
 const showAllNotes = function (allNotes) {
-  console.clear();
   console.log('List of all notes:');
   allNotes.forEach(note => {
     console.log('- - -');
@@ -38,10 +32,6 @@ const showAllNotes = function (allNotes) {
     });
   });
   console.log('- - -');
-};
-
-const writeToFile = function (allNotes, path) {
-  fs.writeFileSync(path, JSON.stringify(allNotes, null, ' '));
 };
 
 const checkTitleExistence = function (allNotes, title) {
@@ -62,44 +52,6 @@ const updateNote = function (allNotes, title, newTitle, newBody) {
   });
   if (!someChange) { throw new Error(`Note with the title "${title}" wasn't found`); }
   return notes;
-};
-
-const toJson = function (allNotes, path) {
-  const workbook = xlsx.readFile(path);
-  const sheetNameList = workbook.SheetNames;
-  let xlsxData = xlsx.utils.sheet_to_json(workbook.Sheets[sheetNameList[0]]);
-  xlsxData = checkData(xlsxData, allNotes);
-  return allNotes.concat(xlsxData);
-};
-
-const checkData = function (xlsxData, allNotes) {
-  let titles = allNotes.map(note => {
-    return note.title;
-  });
-  console.log(titles);
-  const correctData = xlsxData.filter(note => {
-    if (note.body && note.title) {
-      if (!titles.includes(note.title)) {
-        titles.push(note.title);
-        return note;
-      } else { console.log(`Note with the title ${note.title} already exists. This note will skipped.`); }
-    } else { console.log(`Note without title or body was found. This note will skipped.`); }
-  });
-  return correctData;
-};
-
-const toXlsx = function (allNotes, path, outPath) {
-  const ws = xlsx.utils.json_to_sheet(allNotes);
-  const wb = xlsx.utils.book_new();
-  xlsx.utils.book_append_sheet(wb, ws, 'Notes');
-  let pathToFile = outPath ? `${outPath}/${pathLib.basename(path).replace('.json', '.xlsx')}` : path.replace('.json', '.xlsx');
-  xlsx.writeFile(wb, pathToFile);
-  console.log(`XLSX file - ${pathToFile} was succesfully created.`);
-};
-
-const readFile = function (path) {
-  if (!fs.existsSync(path)) { throw new Error(`File "${path}" not found`); }
-  return require(path);
 };
 
 const getDateString = function () {
@@ -162,11 +114,7 @@ const sort = function (allNotes, type, order) {
 exports.removeNote = removeNote;
 exports.showNote = showNote;
 exports.showAllNotes = showAllNotes;
-exports.writeToFile = writeToFile;
 exports.checkTitleExistence = checkTitleExistence;
 exports.updateNote = updateNote;
-exports.toJson = toJson;
-exports.toXlsx = toXlsx;
-exports.readFile = readFile;
 exports.addNote = addNote;
 exports.sort = sort;
